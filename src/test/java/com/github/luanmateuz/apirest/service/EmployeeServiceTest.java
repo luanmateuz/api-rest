@@ -9,7 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.*;
+import org.mockito.ArgumentMatchers;
+import org.mockito.BDDMockito;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -71,5 +74,18 @@ class EmployeeServiceTest {
 
         Assertions.assertThatExceptionOfType(BadRequestException.class)
                 .isThrownBy(() -> employeeService.findById(1L));
+    }
+
+    @Test
+    @DisplayName("delete removes Employee when successful")
+    void delete_RemovesEmployee_WhenSuccessful() {
+        Assertions.assertThatCode(() -> employeeService.delete(1L)).doesNotThrowAnyException();
+    }
+
+    @Test
+    @DisplayName("delete throws BadRequestException when Employee not found")
+    void delete_ThrowsBadRequestException_WhenEmployeeNotFound() {
+        Assertions.assertThatExceptionOfType(BadRequestException.class)
+                .isThrownBy(() -> employeeService.delete(ArgumentMatchers.any()));
     }
 }
