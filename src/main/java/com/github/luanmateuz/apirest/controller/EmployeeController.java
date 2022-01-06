@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -27,6 +29,13 @@ public class EmployeeController {
         return ResponseEntity
                 .ok()
                 .body(this.employeeService.findById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<Employee> save(@RequestBody @Valid Employee employee) {
+        return ResponseEntity
+                .created(URI.create("/"))
+                .body(this.employeeService.save(employee));
     }
 
     @DeleteMapping(value = "{id}")

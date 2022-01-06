@@ -27,4 +27,8 @@ public class EmployeeService {
     public void delete(Long id) {
         this.employeeRepository.delete(findById(id));
     }
+
+    public Employee save(Employee employee) {
+        return this.employeeRepository.save(employee);
+    }
 }
