@@ -7,6 +7,10 @@ import java.util.List;
 
 public class EmployeeCreator {
 
+    public static Employee employee() {
+        return new Employee(1L, "Luan", "Developer");
+    }
+
     public static List<Employee> allEmployees() {
         Employee employee1 = new Employee(1L, "Luan", "Developer");
         Employee employee2 = new Employee(2L, "Joao", "Developer");
