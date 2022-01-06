@@ -23,4 +23,8 @@ public class EmployeeService {
                 .findById(id)
                 .orElseThrow(() -> new BadRequestException(String.format("Could not found Employee [%d]", id)));
     }
+
+    public void delete(Long id) {
+        this.employeeRepository.delete(findById(id));
+    }
 }
