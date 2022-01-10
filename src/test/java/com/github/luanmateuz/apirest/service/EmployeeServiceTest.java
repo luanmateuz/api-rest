@@ -35,6 +35,8 @@ class EmployeeServiceTest {
                 .thenReturn(EmployeeCreator.allEmployees());
         BDDMockito.when(employeeRepositoryMock.findById(ArgumentMatchers.anyLong()))
                 .thenReturn(Optional.of(EmployeeCreator.employee()));
+        BDDMockito.when(employeeRepositoryMock.save(ArgumentMatchers.any(Employee.class)))
+                .thenReturn(EmployeeCreator.employee());
     }
 
     @Test
@@ -74,6 +76,32 @@ class EmployeeServiceTest {
 
         Assertions.assertThatExceptionOfType(BadRequestException.class)
                 .isThrownBy(() -> employeeService.findById(1L));
+    }
+
+    @Test
+    @DisplayName("save registry Employee when successful")
+    void save_RegistryEmployee_WhenSuccessful() {
+        Employee save = employeeService.save(EmployeeCreator.employee());
+
+        Assertions.assertThat(save)
+                .isNotNull()
+                .isEqualTo(EmployeeCreator.employee())
+                .isInstanceOf(Employee.class);
+    }
+
+    @Test
+    @DisplayName("save registry Employee when successful")
+    void save_ThrowsBadRequestException_WhenEmployeeNameIsBlankOrEmpty() {
+        BDDMockito.when(employeeRepositoryMock.save(ArgumentMatchers.any(Employee.class)))
+                .thenReturn(EmployeeCreator.invalidEmployee());
+
+        Employee invalid = employeeService.save(EmployeeCreator.invalidEmployee());
+
+        Assertions.assertThat(invalid.getName())
+                .isNullOrEmpty();
+        Assertions.assertThat(invalid)
+                .isInstanceOf(Employee.class)
+                .as("Validation failed for object='employee'. Error count: 1");
     }
 
     @Test

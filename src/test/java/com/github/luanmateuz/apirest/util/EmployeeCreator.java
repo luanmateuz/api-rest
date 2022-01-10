@@ -11,6 +11,10 @@ public class EmployeeCreator {
         return new Employee(1L, "Luan", "Developer");
     }
 
+    public static Employee invalidEmployee() {
+        return new Employee(1L, "", "Developer");
+    }
+
     public static List<Employee> allEmployees() {
         Employee employee1 = new Employee(1L, "Luan", "Developer");
         Employee employee2 = new Employee(2L, "Joao", "Developer");
