@@ -105,6 +105,13 @@ class EmployeeServiceTest {
     }
 
     @Test
+    @DisplayName("update Employee when successful")
+    void update_UpdatesEmployee_WhenSuccessful() {
+        Assertions.assertThatCode(() -> employeeService.update(EmployeeCreator.employee()))
+                .doesNotThrowAnyException();
+    }
+
+    @Test
     @DisplayName("delete removes Employee when successful")
     void delete_RemovesEmployee_WhenSuccessful() {
         Assertions.assertThatCode(() -> employeeService.delete(1L)).doesNotThrowAnyException();
