@@ -24,11 +24,16 @@ public class EmployeeService {
                 .orElseThrow(() -> new BadRequestException(String.format("Could not found Employee [%d]", id)));
     }
 
-    public void delete(Long id) {
-        this.employeeRepository.delete(findById(id));
-    }
-
     public Employee save(Employee employee) {
         return this.employeeRepository.save(employee);
+    }
+
+    public void update(Employee employee) {
+        Employee byId = findById(employee.getId());
+        this.employeeRepository.save(byId);
+    }
+
+    public void delete(Long id) {
+        this.employeeRepository.delete(findById(id));
     }
 }

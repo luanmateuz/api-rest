@@ -38,6 +38,14 @@ public class EmployeeController {
                 .body(this.employeeService.save(employee));
     }
 
+    @PutMapping
+    public ResponseEntity<Void> update(@RequestBody @Valid Employee employee) {
+        this.employeeService.update(employee);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
     @DeleteMapping(value = "{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         this.employeeService.delete(id);
